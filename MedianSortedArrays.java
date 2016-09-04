@@ -15,6 +15,10 @@ The median is (2 + 3)/2 = 2.5
 
 */
 
+
+
+// O(log (m+n)) Time
+
 public class Solution 
 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) 
