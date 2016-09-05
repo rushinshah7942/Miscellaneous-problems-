@@ -63,7 +63,8 @@ public int maxSubArray(int[] nums)
 	{
 		int max = nums[0];
         int currentSum = 0;
-        for (int i : nums) {
+        for (int i : nums) 
+		{
             currentSum += i;
             max = Math.max(max, currentSum);
 			// important step
@@ -73,4 +74,4 @@ public int maxSubArray(int[] nums)
             }
         }      
         return max;	
-	}
+	} 
