@@ -51,7 +51,8 @@ public String convert(String s, int numRows)
 			}
 		}
 	}
- 
+
+
 	return sb.toString();
 }
 
