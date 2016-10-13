@@ -31,3 +31,27 @@ Time complexity required: O(n) where n is the size of the input string.
 
 Notice that a/aa/aaa/file1.txt is not the longest file path, if there is another path aaaaaaaaaaaaaaaaaaaaa/sth.png
 */
+
+public class Solution 
+{
+    public int lengthLongestPath(String input) 
+    {
+        String[] paths = input.split("\n");
+        int[] stack = new int[paths.length+1];
+        int maxLen = 0;
+        for(String s:paths)
+        {
+            int lev = s.lastIndexOf("\t")+1; // count number of '\t'
+
+            int curLen = stack[lev+1] = stack[lev]+s.length() -lev+1; // remove number of "/t", add"/"
+
+            System.out.println("path: " + s + " len: " + curLen);
+            
+            if(s.contains(".")) 
+                maxLen = Math.max(maxLen, curLen-1);
+        }
+        return maxLen;        
+    }
+}
+
+
