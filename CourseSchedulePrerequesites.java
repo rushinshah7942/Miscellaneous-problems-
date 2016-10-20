@@ -45,7 +45,8 @@ public class Solution
         }
         
         // find multiple roots in the graph for which indegree is 0
-        for(int i=0; i<indegree.length;i++){
+        for(int i=0; i<indegree.length;i++)
+		{
             if(indegree[i] == 0){
                 queue.add(i);
                 count++;
