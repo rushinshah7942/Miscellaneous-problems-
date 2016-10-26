@@ -8,6 +8,15 @@ You may assume that the array is non-empty and the majority element always exist
 
 public class Solution 
 {
+	/* O(n LogN) 
+	public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+	*/
+	
+	
+	// O(N)
     public int majorityElement(int[] nums) 
     {
         int major = nums[0];
