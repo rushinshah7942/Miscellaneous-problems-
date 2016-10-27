@@ -4,6 +4,7 @@ Given an array of size n, find the majority element. The majority element is the
 You may assume that the array is non-empty and the majority element always exist in the array.
 */
 
+// Boyer-Moore Majority vote algorithm
 // Reference: http://www.cs.utexas.edu/~moore/best-ideas/mjrty/example.html
 
 public class Solution 
