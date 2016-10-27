@@ -126,7 +126,8 @@ public class Solution
                 }
             }
         }
-        for (int i=0; i<k-1; i++) 
+        
+		for (int i=0; i<k-1; i++) 
 			if (counts[i]>n/k) 
 				result.add(majors[i]);
         
