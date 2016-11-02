@@ -53,8 +53,6 @@ class MyStack {
 	}
 }
 
-
-
 // VERSION B
 // POP is costly
 
