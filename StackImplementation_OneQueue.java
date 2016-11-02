@@ -1,5 +1,5 @@
 /*
-
+Implemnetation of Stack using One queue only
 */
 class MyStack {
 
@@ -9,7 +9,7 @@ class MyStack {
 	// Push element x onto stack.
 	public void push(int x) {
 		q.add(x);
-		for(int i = 1; i < q.size(); i ++) { //rotate the queue to make the tail be the head
+		for(int i = 0; i < q.size()-1; i ++) { //rotate the queue to make the tail be the head
 			q.add(q.poll());
 		}
 	}
