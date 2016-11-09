@@ -11,6 +11,8 @@ return [0, 1].
 
 */
 
+// O(N) time and space solution
+
 public class TwoSum {
     public int[] twoSum(int[] nums, int target) {
         
@@ -34,4 +36,30 @@ public class TwoSum {
         }
         return result;   
     }
+}
+
+
+// Without using HashMap
+
+public int[] twoSum(int[] nums, int target){
+	int start = 0;
+	int end = nums.length-1;
+	
+	int[] result = new int[2];
+	// Sort the array
+	Arrays.sort(nums);
+	
+	while(start<end){
+		int temp = nums[start] + nums[end];
+		if(temp < target){
+			start++;
+		}else if(temp > target){
+			end--;
+		}else{
+			result[0] = start;
+			result[1] = end;
+			break;
+		}
+	}
+	return result;
 }
