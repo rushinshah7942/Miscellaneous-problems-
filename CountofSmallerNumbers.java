@@ -20,44 +20,95 @@ public class Solution
 {
     public List<Integer> countSmaller(int[] nums) 
     {
-    Integer[] ans = new Integer[nums.length];
-    List<Integer> sorted = new ArrayList<Integer>();
-    for (int i = nums.length - 1; i >= 0; i--) 
-    {
-        int index = findIndex(sorted, nums[i]);
-        ans[i] = index;
-        sorted.add(index, nums[i]);
-    }
-    return Arrays.asList(ans);
+		Integer[] ans = new Integer[nums.length];
+		List<Integer> sorted = new ArrayList<Integer>();
+		for (int i = nums.length - 1; i >= 0; i--) {
+			int index = findIndex(sorted, nums[i]); // does binary search 
+			// hence O(N*logN)
+			ans[i] = index;
+			sorted.add(index, nums[i]); 
+			// plus amortized O(N) which we can avoid if there is not much doubling araylist and copying elements
+		}
+		return Arrays.asList(ans);
+	}
+	private int findIndex(List<Integer> sorted, int target) {
+		if (sorted.size() == 0) 
+			return 0;
+		
+		int start = 0;
+		int end = sorted.size() - 1;
+		
+		if (sorted.get(end) < target) 
+			return end + 1;
+		if (sorted.get(start) >= target) 
+			return 0;
+		
+		while (start + 1 < end) {
+			int mid = start + (end - start) / 2;
+			if (sorted.get(mid) < target){
+				start = mid + 1;
+			}else {
+				end = mid;
+			}
+		}
+		
+		if (sorted.get(start) >= target) 
+			return start;
+		
+		return end;
+	}
 }
-private int findIndex(List<Integer> sorted, int target) 
-{
-    if (sorted.size() == 0) 
-    return 0;
-    int start = 0;
-    int end = sorted.size() - 1;
-    
-    if (sorted.get(end) < target) 
-        return end + 1;
-    if (sorted.get(start) >= target) 
-        return 0;
-    while (start + 1 < end) 
-    {
-        int mid = start + (end - start) / 2;
-        if (sorted.get(mid) < target) 
-        {
-            start = mid + 1;
-        } 
-        else 
-        {
-            end = mid;
-        }
-    }
-    if (sorted.get(start) >= target) return start;
-    return end;
-}
-}
-// Note: Due to the O(n) complexity of ArrayList insertion, the total runtime complexity is not very fast.
 
 
 
+// Using BST 
+// Faster 
+
+
+public class Solution {
+	public List<Integer> countSmaller(int[] nums) {
+		if(nums.length == 0)
+			return new ArrayList<Integer>();
+		
+		List<Integer> list = new ArrayList<Integer>();
+		List<Integer> list1 = new ArrayList<Integer>();
+		TreeNode root = new TreeNode(nums[nums.length-1]);
+		root.num=1;
+		list.add(0);
+		
+		for(int i = nums.length-2;i >= 0;i--){
+			list.add(get(root,nums[i],0));
+		}
+		
+		for(int i = nums.length-1;i >= 0;i--)
+			list1.add(list.get(i));
+		
+		return list1;
+	}
+	public int get(TreeNode root,int val,int num){
+		if(root.val >= val)
+		{
+			root.num = root.num+1;
+			if(root.left == null)
+			{
+				TreeNode node = new TreeNode(val);
+				node.num = 1;
+				root.left = node;
+				return num;
+			}else{
+				return get(root.left,val,num);
+			}
+		}
+		else{
+			num += root.num;
+			if(root.right == null){
+				TreeNode node = new TreeNode(val);
+				node.num = 1;
+				root.right = node;
+				return num;
+			}else{
+				return get(root.right,val,num);
+			}
+		}
+	}
+}
