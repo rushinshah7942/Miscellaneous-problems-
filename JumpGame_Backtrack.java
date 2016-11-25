@@ -23,7 +23,7 @@ public class Solution
         for(int i=nums.length-2;i>=0;i--)
         {
             if(i + nums[i] >= last)
-                last = i;
+                last = i; // keep shifting last pointer
         }    
         return last <=0;
     }
