@@ -20,10 +20,10 @@ public class Solution {
                 if (grid[i][j] == 1) {
                     result += 4;
  
-				if (i > 0 && grid[i-1][j] == 1) 
-					result -= 2;
-                if (j > 0 && grid[i][j-1] == 1) 
-					result -= 2;
+					if (i > 0 && grid[i-1][j] == 1) 
+						result -= 2;
+					if (j > 0 && grid[i][j-1] == 1) 
+						result -= 2;
                 }
             }
         }
