@@ -32,7 +32,8 @@ public class Solution {
             diff ^= num;
         }
         // Get its last set bit
-        diff &= -diff;
+        diff &= -diff; 
+		// "two's complement" is more often used for representing negative numbers
         
         // Pass 2 :
         int[] rets = {0, 0}; // this array stores the two numbers we will return

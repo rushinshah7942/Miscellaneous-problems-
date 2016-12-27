@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+
+// O(n*logn * m)
 public class PrintAnagramsTogether
 {
 	public static void main(String[] args){
@@ -86,11 +88,15 @@ public List<List<String>> groupAnagrams(String[] strs) {
             map.put(ns, al);
         }
     }
- 
     result.addAll(map.values());
  
     return result;
 }
-Time Complexity
 
+/*
+Time Complexity
+---------------
 If the average length of verbs is m and array length is n, then the time is O(n*m).
+
+If you sort, each word and combine into hashmap appending by semi-colon will require O(m* n* log n). 
+*/
