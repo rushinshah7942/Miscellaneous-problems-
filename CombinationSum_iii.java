@@ -26,8 +26,10 @@ public List<List<Integer>> combinationSum3(int k, int n) {
 }
 
 private void backtrack(List<List<Integer>> list, List<Integer> tempList, int k, int remain, int start) {
-    if(tempList.size() > k) return; /** no solution */
-    else if(tempList.size() == k && remain == 0) list.add(new ArrayList<>(tempList));
+    if(tempList.size() > k) 
+		return; /** no solution */
+    else if(tempList.size() == k && remain == 0) 
+		list.add(new ArrayList<>(tempList));
     else{
         for (int i = start; i <= 9; i++) {
             tempList.add(i);

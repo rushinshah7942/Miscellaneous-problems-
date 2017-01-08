@@ -23,11 +23,10 @@ public class Solution
 		Integer[] ans = new Integer[nums.length];
 		List<Integer> sorted = new ArrayList<Integer>();
 		for (int i = nums.length - 1; i >= 0; i--) {
-			int index = findIndex(sorted, nums[i]); // does binary search 
-			// hence O(N*logN)
+			int index = findIndex(sorted, nums[i]); // does binary search, hence O(N*logN)
 			ans[i] = index;
 			sorted.add(index, nums[i]); 
-			// plus amortized O(N) which we can avoid if there is not much doubling araylist and copying elements
+			// plus amortized O(N) which we can avoid if there is not much of doubling of araylist and copying elements
 		}
 		return Arrays.asList(ans);
 	}
@@ -59,21 +58,21 @@ public class Solution
 	}
 }
 
-
-
 // Using BST 
 // Faster 
 
 
 public class Solution {
 	public List<Integer> countSmaller(int[] nums) {
+
 		if(nums.length == 0)
 			return new ArrayList<Integer>();
 		
 		List<Integer> list = new ArrayList<Integer>();
 		List<Integer> list1 = new ArrayList<Integer>();
+		
 		TreeNode root = new TreeNode(nums[nums.length-1]);
-		root.num=1;
+		root.val=1;
 		list.add(0);
 		
 		for(int i = nums.length-2;i >= 0;i--){
@@ -85,29 +84,29 @@ public class Solution {
 		
 		return list1;
 	}
-	public int get(TreeNode root,int val,int num){
+	public int get(TreeNode root,int val,int val){
 		if(root.val >= val)
 		{
-			root.num = root.num+1;
+			root.val = root.val+1;
 			if(root.left == null)
 			{
 				TreeNode node = new TreeNode(val);
-				node.num = 1;
+				node.val = 1;
 				root.left = node;
-				return num;
+				return val;
 			}else{
-				return get(root.left,val,num);
+				return get(root.left,val,val);
 			}
 		}
 		else{
-			num += root.num;
+			val += root.val;
 			if(root.right == null){
 				TreeNode node = new TreeNode(val);
-				node.num = 1;
+				node.val = 1;
 				root.right = node;
-				return num;
+				return val;
 			}else{
-				return get(root.right,val,num);
+				return get(root.right,val,val);
 			}
 		}
 	}

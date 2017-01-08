@@ -33,5 +33,5 @@ public int countSegments(String s) {
     return res;
 }
 
-Time complexity:  O(n)
-Space complexity: O(1)
+//Time complexity:  O(n)
+//Space complexity: O(1)
