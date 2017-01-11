@@ -1,0 +1,13 @@
+/*
+A, B are people. They take turns flipping a coin with A flipping first, B second..The winner is the one who first obtains a head. What is A's probability of winning?
+*/
+
+Suppose we know that Player A won. The probability that he won on his first toss is 1/2. 
+The probability that he won on his second toss is (1/2)*(1/2)*(1/2). 
+
+Thus,
+Player A's total probability of winning is: (1/2), (1/2)^3, (1/2)^5......
+
+S = a / (1-r)
+
+Hence, S = 2/3.
