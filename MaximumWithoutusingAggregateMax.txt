@@ -1,0 +1,68 @@
+/*
+Let’s say that you are given a SQL table called “Compare” (the schema is shown below) with only one column called “Numbers”.
+
+Compare  
+{
+     Numbers INT(4)
+}
+
+*/
+
+Compare
+--------
+30
+70
+-8
+90
+
+
+
+1) Using comparison between numbers and using selfjoin
+-----------------------
+SELECT Smaller.Numbers, Larger.Numbers
+FROM Compare as Larger JOIN Compare AS Smaller
+ON Smaller.Numbers < Larger.Numbers
+
+so, answer 
+Smaller	Larger
+--------------
+-8	90
+30	90
+70	90
+-8	70
+30	70
+70	90
+
+ow we have every value in the "Smaller" column except the largest value of 90. This means that all we have to do is find the value that is not in the Smaller column (but is in the Compare table), and that will give us the maximum value. We can easily do this using the NOT IN operator in SQL.
+
+SELECT Numbers
+FROM Compare
+WHERE Numbers NOT IN (
+SELECT Smaller.Numbers
+FROM Compare AS Larger
+JOIN Compare AS Smaller ON Smaller.Numbers < Larger.Numbers
+)
+
+
+2) Using limit option in SQL
+-----------------------------
+select 
+     Numbers
+from
+     Compare
+order by
+      Numbers DESC  - order in descending order
+LIMIT 1  --retrieve only one value
+
+3) using top keyword in SQL
+--------------------------
+select TOP 1  -- select the very top entry in result set
+     Numbers
+from
+     Compare
+order by
+     Numbers DESC
+	 
+	 
+	 
+	 

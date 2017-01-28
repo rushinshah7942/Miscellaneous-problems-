@@ -1,0 +1,94 @@
+inverted index: http://www.skorks.com/2010/01/search-fundamentals-basic-indexing/
+
+Reference: https://cwiki.apache.org/confluence/display/solr/About+This+Guide
+
+Schema:
+-------
+Solr allows you to build an index with many different fields, or types of entries. he schema is the place where you tell Solr how it should build indexes from input documents. 
+
+Solr's basic unit of information is a document, which is a set of data that describes something. A recipe document would contain the ingredients, the instructions, the preparation time, the cooking time, the tools needed, and so on. A document about a person, for example, might contain the person's name, biography, favorite color, and shoe size. A document about a book could contain the title, author, year of publication, number of pages, and so on.
+
+Fields and FieldType :
+----------------------
+In the Solr universe, documents are composed of fields, which are more specific pieces of information.
+
+You can tell Solr about the kind of data a field contains by specifying its field type. The field type tells Solr how to interpret the field and how it can be queried.
+
+When you add a document, Solr takes the information in the document's fields and adds that information to an index. When you perform a query, Solr can quickly consult the index and return the matching documents.
+
+Solr's Schema File
+--------------------
+Solr stores details about the field types and fields it is expected to understand in a schema file. The name and location of this file may vary depending on how you initially configured Solr or if you modified it later.
+	
+	managed-schema is the name for the schema file Solr uses by default to support making Schema changes at runtime via the Schema API, or Schemaless Mode features. You may explicitly configure the managed schema features to use an alternative filename if you choose, but the contents of the files are still updated automatically by Solr.
+	
+	schema.xml is the traditional name for a schema file which can be edited manually by users who use the ClassicIndexSchemaFactory.
+	If you are using SolrCloud you may not be able to find any file by these names on the local filesystem. You will only be able to see the schema through the Schema API (if enabled) or through the Solr Admin UI's Cloud Screens.
+	
+Field Type Definitions in schema.xml
+-----------------------------------
+A field type definition can include four types of information:
+	The name of the field type (mandatory)
+	An implementation class name (mandatory)
+	If the field type is TextField, a description of the field analysis for the field type
+	Field type properties - depending on the implementation class, some properties may be mandatory.
+
+e.g.
+
+<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+  <analyzer type="index">
+    <tokenizer class="solr.StandardTokenizerFactory"/>
+    <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+    <!-- in this example, we will only use synonyms at query time
+    <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+    -->
+    <filter class="solr.LowerCaseFilterFactory"/>
+  </analyzer>
+  <analyzer type="query">
+    <tokenizer class="solr.StandardTokenizerFactory"/>
+    <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+    <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+  </analyzer>
+</fieldType>	
+
+
+Understanding Analyzers, Tokenizers, and Filters
+--------------------------------------------------
+Field analyzers are used both during ingestion, when a document is indexed, and at query time. An analyzer examines the text of fields and generates a token stream. Analyzers may be a single class or they may be composed of a series of tokenizer and filter classes.
+
+i.e. Analyzers are combined of Tokenizers and Filers
+---------
+Tokenizers break field data into lexical units, or tokens.
+
+Filters examine a stream of tokens and keep them, transform or discard them, or create new ones. Tokenizers and filters may be combined to form pipelines, or chains, where the output of one is input to the next. Such a sequence of tokenizers and filters is called an analyzer and the resulting output of an analyzer is used to match query results or build indices.	
+
+
+
+Using Analyzers, Tokenizers, and Filters
+--------------------------------------
+Although the analysis process is used for both indexing and querying, the same analysis process need not be used for both operations. For indexing, you often want to simplify, or normalize, words. For example, setting all letters to lowercase, eliminating punctuation and accents, mapping words to their stems, and so on. Doing so can increase recall because, for example, "ram", "Ram" and "RAM" would all match a query for "ram". 
+
+To increase query-time precision, a filter could be employed to narrow the matches by, for example, ignoring all-cap acronyms if you're interested in male sheep, but not Random Access Memory.
+
+Solr Indexing
+---------------
+A Solr index can accept data from many different sources, including XML files, comma-separated value (CSV) files, data extracted from tables in a database, and files in common file formats such as Microsoft Word or PDF.
+Here are the three most common ways of loading data into a Solr index:
+
+	Using the Solr Cell framework built on Apache Tika for ingesting binary files or structured files such as Office, Word, PDF, and other proprietary formats.
+	
+	-> Uploading XML files by sending HTTP requests to the Solr server from any environment where such requests can be generated.
+	
+	Writing a custom Java application to ingest data through Solr's Java Client API (which is described in more detail in Client APIs. Using the Java API may be the best choice if you're working with an application, such as a Content Management System (CMS), that offers a Java API.
+
+Regardless of the method used to ingest data, there is a common basic data structure for data being fed into a Solr index: a document containing multiple fields, each with a name and containing content, which may be empty. One of the fields is usually designated as a unique ID field (analogous to a primary key in a database), although the use of a unique ID field is not strictly required by Solr.
+
+If the field name is defined in the Schema that is associated with the index, then the analysis steps associated with that field will be applied to its content when the content is tokenized. Fields that are not explicitly defined in the Schema will either be ignored or mapped to a dynamic field definition (see Documents, Fields, and Schema Design), if one matching the field name exists.
+
+The curl Utility for Transferring Files
+--------------------------------------
+Many of the instructions and examples in this section make use of the curl utility for transferring content through a URL. curl posts and retrieves data over HTTP, FTP, and many other protocols.
+
+Overview of Searching in Solr
+-----------------------------
