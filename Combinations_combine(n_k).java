@@ -29,6 +29,7 @@ public List<List<Integer>> combine(int n, int k) {
 	for (int i = 2; i <= k; i++) { // will keep increasing size in amount of i upto k
         List<List<Integer>> tmp = new ArrayList<List<Integer>>();
         for (List<Integer> list : res) {
+			// take first element of list and start with adding from next int
             for (int m = list.get(list.size() - 1) + 1; m <= n - (k - i); m++) {
                 List<Integer> newList = new ArrayList<Integer>(list);
                 newList.add(m);
