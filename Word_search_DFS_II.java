@@ -25,93 +25,75 @@ You would need to optimize your backtracking to pass the larger test. Could you 
 If the current candidate does not exist in all words' prefix, you could stop backtracking immediately. What kind of data structure could answer such query efficiently? Does a hash table work? Why or why not? How about a Trie? If you would like to learn how to implement a basic trie
 
 */
+ 
+//The Trie is formed by all the words in given words. Then during the DFS, for each current formed word, I check if it is in the Trie.
 
-public class Trie {
-
-    /** Initialize your data structure here. */
-    public Trie() {
-        
+public class Solution {
+    
+    class TrieNode{
+        String word;
+        TrieNode[] children = new TrieNode[26];
     }
     
-    /** Inserts a word into the trie. */
-    public void insert(String word) {
+    public TrieNode buildTree(String[] words){
+        TrieNode root = new TrieNode();
         
+        for(String w : words){
+            TrieNode node = root;
+            char[] ch = w.toCharArray();
+        
+            for(char c : ch){
+                int index = c - 'a';
+                if(node.children[index] == null)
+                    node.children[index] = new TrieNode();
+                node = node.children[index];    
+            }
+            node.word = w; // assign word at the end and go to the next word
+        
+        }
+        return root;
     }
     
-    /** Returns if the word is in the trie. */
-    public boolean search(String word) {
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> result = new ArrayList<>();
         
-    }
-    
-    /** Returns if there is any word in the trie that starts with the given prefix. */
-    public boolean startsWith(String prefix) {
+        TrieNode root = buildTree(words); // build Trie tree from given words
         
-    }
-}
-
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie obj = new Trie();
- * obj.insert(word);
- * boolean param_2 = obj.search(word);
- * boolean param_3 = obj.startsWith(prefix);
- */
- 
- 
- 
-/*
------------------
-Solution         |
------------------ 
-*/ 
-
-
-public class Solution{
-	
-	class TrieNode {
-		TrieNode[] next = new TrieNode[26];
-		String word;
-	}
-
-	public TrieNode buildTrie(String[] words) {
-		TrieNode root = new TrieNode();
-		for (String w : words) {
-			TrieNode p = root;
-			for (char c : w.toCharArray()) {
-				int i = c - 'a';
-				if (p.next[i] == null) p.next[i] = new TrieNode();
-				p = p.next[i];
-		   }
-		   p.word = w;
-		}
-		return root;
-	}
-	
-	public List<String> findWords(char[][] board, String[] words) {
-		List<String> res = new ArrayList<>();
-		TrieNode root = buildTrie(words);
-		for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				dfs (board, i, j, root, res);
+				helperDFS(board, i, j, root, result);
 			}
 		}
-		return res;
-	}
-
-	public void dfs(char[][] board, int i, int j, TrieNode p, List<String> res) {
-		char c = board[i][j];
-		if (c == '#' || p.next[c - 'a'] == null) return;
-		p = p.next[c - 'a'];
-		if (p.word != null) {   // found one
-			res.add(p.word);
-			p.word = null;     // de-duplicate
-		}
-
-		board[i][j] = '#';
-		if (i > 0) dfs(board, i - 1, j ,p, res); 
-		if (j > 0) dfs(board, i, j - 1, p, res);
-		if (i < board.length - 1) dfs(board, i + 1, j, p, res); 
-		if (j < board[0].length - 1) dfs(board, i, j + 1, p, res); 
-		board[i][j] = c;
-	}
+		return result;
+    }
+    
+    
+    public void helperDFS(char[][] board, int i, int j, TrieNode root, List<String> result){
+        
+        char c = board[i][j];
+        
+        if(c == '#' || root.children[c-'a'] == null) // same letter or word does not start from that letter
+            return;
+            
+        // go to the next node in Trie
+        root = root.children[c-'a'];
+        
+        if(root.word != null){
+            // found our word
+            result.add(root.word);
+            root.word = null; // to avoid duplicate
+        }
+        board[i][j] = '#'; // to avoid using same letter
+        
+        if(i > 0) 
+            helperDFS(board, i - 1, j ,root, result);
+        if(j > 0)
+            helperDFS(board, i , j - 1,root, result);
+        if(i < board.length-1)
+            helperDFS(board, i + 1, j ,root, result);
+        if(j < board[0].length - 1)
+            helperDFS(board, i , j + 1 ,root, result);
+	
+	    board[i][j] = c; // change back to original	
+    }
 }
