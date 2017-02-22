@@ -25,6 +25,8 @@ Auxiliary Space: O(M + N)
 
 */
 
+
+
 /*
 Method 2 (A Space Optimized Version of Method 1)
 This method is a space optimized version of above method 1. This method uses the first row and first column of the input matrix in place of the auxiliary arrays row[] and col[] of method 1. So what we do is: first take care of first row and column and store the info about these two in two flag variables rowFlag and colFlag. Once we have this info, we can use first row and first column as auxiliary arrays and apply method 1 for submatrix (matrix excluding first row and first column) of size (M-1)*(N-1).
@@ -41,7 +43,8 @@ Auxiliary Space: O(1)
 
 public class Solution {
     public void setZeroes(int[][] matrix) {
-        boolean firstRowZero = false;
+
+		boolean firstRowZero = false;
         boolean firstColumnZero = false;
  
         //set first row and column zero or not
