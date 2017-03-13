@@ -25,7 +25,41 @@ Auxiliary Space: O(M + N)
 
 */
 
-
+public void setZeroes(int[][] matrix) {
+	
+	boolean[] row = boolean[matrix.length];
+	boolean[] column = new boolean[matrix[0].length];
+	
+	for(int i=0;i<matrix.length;i++){
+		for(int j=0;j<matrix[0].length;j++){
+			if(matrix[i][j] == 0){
+				row[i] = true;
+				column[j] = true;
+			}
+		}
+	}
+	
+	// nullify row
+	for(int i=0;i<row.length;i++){
+		if(row[i]) nullifyRow(matrix,i);
+	}
+	// nullify column
+	for(int j=0;j<column.length;j++){
+		if(column[j]) nullifyColumn(matrix,j);
+	}
+	
+	public void nullifyColumn(int[][] matrix, int column){
+		for(int i=0;i<matrix.length;i++){
+			matrix[i][column] = 0;
+		}
+	}
+	
+	public void nullifyRow(int[][] matrix, int row){
+		for(int j = 0; j < matrix[0].length;j++){
+			matrix[row][j] = 0;
+		}
+	}
+}
 
 /*
 Method 2 (A Space Optimized Version of Method 1)
@@ -54,14 +88,12 @@ public class Solution {
                 break;
             }
         }
- 
         for(int i=0; i<matrix[0].length; i++){
             if(matrix[0][i] == 0){
                 firstRowZero = true;
                 break;
             }
         }
- 
         //mark zeros on first row and column
         for(int i=1; i<matrix.length; i++){
             for(int j=1; j<matrix[0].length; j++){
@@ -71,7 +103,6 @@ public class Solution {
                 }
             }
         }
- 
         //use mark to set elements
         for(int i=1; i<matrix.length; i++){
             for(int j=1; j<matrix[0].length; j++){
@@ -80,7 +111,6 @@ public class Solution {
                 }
             }
         }
- 
         //set first column and row
         if(firstColumnZero){
             for(int i=0; i<matrix.length; i++)
@@ -94,4 +124,3 @@ public class Solution {
  
     }
 }
-

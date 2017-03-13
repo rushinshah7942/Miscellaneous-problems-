@@ -47,6 +47,8 @@ public class Solution {
             this.y = y;
              
             // sqrt(x^2 + y^2)
+			// distance = Math.sqrt( Math.pow((x-original.x),2) + 
+			//                       Math.pow((y-original.y),2) );
             distance = Math.hypot(x - original.x, y - original.y);
         }
          
