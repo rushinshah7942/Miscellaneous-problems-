@@ -17,14 +17,19 @@ public class Solution {
     public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
     
         wordList.add(endWord);
+		
         Queue<String> queue = new LinkedList<String>();
         queue.add(beginWord);
-        int level = 0;
-        while(!queue.isEmpty()){
+        
+		int level = 0;
+        
+		while(!queue.isEmpty()){
             int size = queue.size();
-            for(int i = 0; i < size; i++){ // BFS
+        
+			for(int i = 0; i < size; i++){ // BFS
                 String cur = queue.remove();
-                if(cur.equals(endWord)){ 
+            
+				if(cur.equals(endWord)){ 
                     return level + 1;
                 }
                 for(int j = 0; j < cur.length(); j++)

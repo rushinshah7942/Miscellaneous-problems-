@@ -16,12 +16,12 @@ For example, given S = [1,2,3], the method returns:
 ]
 */
 
-public ArrayList<arraylist<integer>> subsets(int[] S) 
+public ArrayList<Arraylist<Integer>> subsets(int[] S) 
 {
 	ArrayList<List<Integer>> ans = new ArrayList<ArrayList<Integer>>();
 	ans.add(new ArrayList<integer>());
 	
-	Arrays.sort(S);
+	Arrays.sort(S); // to generate power set in numerical order
 	for (int i = 0; i < S.length; i ++) 
 	{
 		int curSize = ans.size();

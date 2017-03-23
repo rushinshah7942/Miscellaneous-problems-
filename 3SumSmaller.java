@@ -20,7 +20,8 @@ The only thing needs to take special care of is how to move the pointers. There 
 
 public class Solution {
     public int threeSumSmaller(int[] nums, int target) {
-        if (nums == null || nums.length < 3) {
+        
+		if (nums == null || nums.length < 3) {
             return 0;
         }
          
@@ -32,7 +33,7 @@ public class Solution {
             int k = nums.length - 1;
             while (j < k) {
                 if (nums[i] + nums[j] + nums[k] < target) {
-                    result += (k - j);
+                    result += (k - j); // this many numbers
                     j++;
                 } else {
                     k--;

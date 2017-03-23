@@ -28,13 +28,15 @@ public class Solution
         
         int start = 0; 
         int count = 0;
+
         for(int i=0;i<nums.length;i++)
         {
 			// If we want to insert an element which is a dup, we can only insert it after the newly inserted elements from last step.
             // Hence, if it's duplicate then start with previous count and add new combination
-            start = (i >=1 && nums[i] == nums[i-1]) ? count : 0;
+            start = (i > 0 && nums[i] == nums[i-1]) ? count : 0;  // count in previous step
+
             count = result.size();
-            for(int j=start;j<count;j++)
+            for(int j = start;j < count;j++)
             {
                 List<Integer> temp = new ArrayList<>(result.get(j));
                 temp.add(nums[i]);

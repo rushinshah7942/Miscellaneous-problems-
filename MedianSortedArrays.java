@@ -73,6 +73,7 @@ public int getMedian(int[] ar1, int[] ar2, int n)
  
     return (m1 + m2)/2;
 }
+
 //---------------------------------------------------------------------------------------
 // OPTIMIZED
 // TWO ARRAYS WITH SAME SIZE

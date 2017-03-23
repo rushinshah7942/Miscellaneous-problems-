@@ -80,7 +80,7 @@ public class Solution
 			{
 				break;
 			}
-			swap(nums, left, right);
+			swap(nums, left, right); // swap left and right, and then try again 
 		}
 		swap(nums, left, end);
  
@@ -90,10 +90,12 @@ public class Solution
 		} 
 		else if (k < left + 1) 
 		{
+			// kth largest will be in left side of left index
 			return getKth(k, nums, start, left - 1);
 		} 
 		else 
 		{
+			// kth largest will be in right side of left index
 			return getKth(k, nums, left + 1, end);
 		}
 	}
@@ -108,6 +110,7 @@ public class Solution
 
 
 /*
+
 Worst case - Example - Explanation
 Quicksort works by taking a pivot, then putting all the elements lower than that pivot on one side and 
 all the higher elements on the other; it then recursively sorts the two sub groups in the same way 
@@ -119,4 +122,5 @@ each need to be iterated through n times, hence the O(n^2) complexity.
 1) Array is already sorted in same order.
 2) Array is already sorted in reverse order.
 3) All elements are same (special case of case 1 and 2)
+
 */

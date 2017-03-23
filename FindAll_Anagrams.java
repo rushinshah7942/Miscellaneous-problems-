@@ -47,21 +47,26 @@ public class Solution {
 		int left = 0, right = 0, count = p.length();
 		
 		while (right < s.length()) {
+			
 			if (hash[s.charAt(right)] >= 1) {
-				count--;
+				count--; // found one of the characters of p's anagram
 			}
+			
 			hash[s.charAt(right)]--;
 			right++;
 			
-			if (count == 0) {
-				list.add(left);
+			if (count == 0) { // found one of the anagrams in String s
+				list.add(left); // left is startting index of anagram
 			}
+			
+			// crossed sliding window size of p.length()
 			if (right - left == p.length() ) {
 			   
+				// only increase the count if character is in p
 				if (hash[s.charAt(left)] >= 0) {
 					count++;
 				}
-				hash[s.charAt(left)]++;
+				hash[s.charAt(left)]++; // reset the hash, we are gonna move left by 1
 				left++;			
 			}
 		}

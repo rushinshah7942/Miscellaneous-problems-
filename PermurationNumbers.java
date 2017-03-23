@@ -46,16 +46,22 @@ Then we have to add 3. first copy {2,1} and {1,2}, add 3 in position 0; then cop
 
 public List<List<Integer>> permute(int[] num) 
 {
+	// num - [1,2,3]
 	List<List<Integer>> ans = new ArrayList<List<Integer>>();
 	List<Integer> ans_temp = new ArrayList<>();
+
 	ans_temp.add(num[0]);
-	ans.add(ans_temp);
+
+	ans.add(ans_temp); // [[1]]
 	
 	for(int i=1;i<num.length;i++)
 	{
 		List<List<Integer>> new_ans = new ArrayList<List<Integer>>();
-		for(int j=0;j<=i;j++)
+		
+		for(int j=0; j <= i ; j++)
 		{
+			// j is index where we will be adding element num[i]
+			// for every list created so far
 			for(List l: ans)
 			{
 				List<Integer> temp = new ArrayList<>();
@@ -67,3 +73,6 @@ public List<List<Integer>> permute(int[] num)
 	}
 	return ans;
 }
+
+// Time complexity : O(n!)
+// The complexity is proportional to the size of the output (number of permutations). Just imagine that for the first position you have n possible candidates, then for the second position you have n-1 possible candidates (as the one is already taken in the first position), for the 3rd position you have n-2 candidates, etc. 
