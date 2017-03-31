@@ -95,6 +95,7 @@ public class Solution {
         if(nums == null) 
 			return null;
         int[] a = nums.clone();
+
         for(int j = 1; j < a.length; j++) {
 			int i = random.nextInt(j + 1); // random between 0 to j (inclusive)
 			// int random = i + (int)(Math.random() * (n-i));
@@ -109,3 +110,14 @@ public class Solution {
         a[j] = t;
     }
 }
+
+public static void shuffle(Object[] a) {
+        int n = a.length;
+        for (int i = 0; i < n; i++) {
+            // choose index uniformly in [0, i]
+            int r = (int) (Math.random() * (i + 1));
+            Object swap = a[r];
+            a[r] = a[i];
+            a[i] = swap;
+        }
+    }

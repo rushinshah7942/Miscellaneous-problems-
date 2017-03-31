@@ -15,12 +15,13 @@ return [0, 1].
 public class TwoSum {
     public int[] twoSum(int[] nums, int target) {
         
-        HashMap<Integer, Integer> hp = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> hp = new HashMap<Integer, Integer>(); // value and its index
         int[] result = new int[2];
         
         for(int i=0;i<nums.length;i++)
         {
             int temp = target - nums[i];
+
             if(hp.get(temp) == null)
             {
                 hp.put(nums[i],i);
@@ -39,6 +40,8 @@ public class TwoSum {
 
 
 // Without using HashMap
+// Time O(nlogn)
+// Space O(1)
 
 public int[] twoSum(int[] nums, int target){
 	int start = 0;
@@ -50,6 +53,7 @@ public int[] twoSum(int[] nums, int target){
 	
 	while(start<end){
 		int temp = nums[start] + nums[end];
+
 		if(temp < target){
 			start++;
 		}else if(temp > target){

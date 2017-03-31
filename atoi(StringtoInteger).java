@@ -6,6 +6,7 @@ Hint: Carefully consider all possible input cases. If you want a challenge, plea
 
 Notes: It is intended for this problem to be specified vaguely (ie, no given input specs). You are responsible to gather all the input requirements up front.
 
+Ask below requirements to Interviewer : clear up
 
 Requirements for atoi:
 -------------------------
@@ -42,12 +43,14 @@ public class Solution
         }
         
 		double result = 0;
+		
         while(i<str.length() &&  str.charAt(i) >='0' && str.charAt(i) <='9')
         {
-            result = result * 10 + (str.charAt(i) - '0'); //auto-boxing, here we want is casting not parsing for numerical value
+            result = (result * 10) + (str.charAt(i) - '0'); //auto-boxing, here we want is casting not parsing for numerical value
 			// http://stackoverflow.com/questions/7479599/why-cant-i-typecast-from-char-to-int
             i++;
         }
+		
         if(flag == 1)
             result = result * (-1);
             

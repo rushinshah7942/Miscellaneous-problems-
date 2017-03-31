@@ -14,7 +14,7 @@ public class Solution
         if(x == 1)
             return 1;
  
-		Simple solution - O(n)
+		Simple solution - O(sqrt(n))
          ---> 31 ms
         long i;
         long num = (long)x;
@@ -28,6 +28,8 @@ public class Solution
         return (int)i-1;
         */
         
+		
+		// n
         // 3ms version 
         // O(log n) version
         

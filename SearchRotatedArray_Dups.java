@@ -20,10 +20,12 @@ public class Solution {
         
 		while(start <= end) {
             mid = (start + end) / 2;
+			
             if (nums[mid] == target) {
                 return true;
             }
-            //If we know for sure right side is sorted
+            
+			//If we know for sure right side is sorted
             if (nums[start] > nums[mid]) {
                 if (target > nums[mid] && target <= nums[end]) {
                     start = mid + 1;
@@ -37,14 +39,15 @@ public class Solution {
                 } else {
                     start = mid + 1;
                 }
-            //If we get here, that means nums[start] == nums[mid] == nums[end], then shifting out
+            } 		
+			else {
+			// duplicates handiling
+			//If we get here, that means nums[start] == nums[mid] == nums[end], then shifting out
             //any of the two sides won't change the result but can help remove duplicate from
-            //consideration, here we just use end-- but left++ works too
-            } else {
+            //consideration, here we just use end-- but left++ works too		
                 end--;
             }
         }
-        
         return false;    
     }
 }

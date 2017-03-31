@@ -27,7 +27,7 @@ public class Solution
         // allows comparing with just != because there's no autoboxing-same-value-to-different-objects-problem anymore
         // put method call returns the previous value associated with key, or null if there was no mapping for key.
         for (Integer i=0; i<words.length; ++i)
-            if (map.put(pattern.charAt(i), i) != map.put(words[i], i))
+            if (map.put(pattern.charAt(i), i) != map.put(words[i], i)) // put returns value or null  
                 return false;
         
         return true;    

@@ -42,6 +42,152 @@ Do a lookup for x in hash map.
    b) Delete
    c) Search
    d) getRandom */
+
+Example:
+
+// Init an empty set.
+RandomizedSet randomSet = new RandomizedSet();
+
+// Inserts 1 to the set. Returns true as 1 was inserted successfully.
+randomSet.insert(1);
+
+// Returns false as 2 does not exist in the set.
+randomSet.remove(2);
+
+// Inserts 2 to the set, returns true. Set now contains [1,2].
+randomSet.insert(2);
+
+// getRandom should return either 1 or 2 randomly.
+randomSet.getRandom();
+
+// Removes 1 from the set, returns true. Set now contains [2].
+randomSet.remove(1);
+
+// 2 was already in the set, so return false.
+randomSet.insert(2);
+
+// Since 2 is the only number in the set, getRandom always return 2.
+randomSet.getRandom();   
+   
+
+// ASK IF DUPLICATES ARE ALLOWED OR NOT
+   
+// No duplicates are allowed   
+   
+public class RandomizedSet {
+    
+	ArrayList<Integer> nums;
+    HashMap<Integer, Integer> map;
+    java.util.Random rand = new java.util.Random();
+	
+    /** Initialize your data structure here. */
+    public RandomizedSet() {
+        nums = new ArrayList<Integer>();
+        map = new HashMap<Integer, Integer>();
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    public boolean insert(int val) {
+        boolean contain = map.containsKey(val);
+        if ( contain ) return false;
+        map.put( val, nums.size());
+        nums.add(val);
+        return true;
+    }
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        boolean contain = map.containsKey(val);
+        if ( ! contain ) return false;
+     
+		int index = map.get(val);
+		
+		// how remove will be o(1) time operation?
+		// just swap with last element -> imp point -> O(1)
+		// update index value in hashmap
+		
+        if (index < nums.size() - 1 ) { // not the last one than swap the last one with this val
+            int lastone = nums.get(nums.size() - 1 ); // get last value
+            nums.set( index , lastone ); // set last value at index
+            map.put(lastone, index); // update map
+        }
+        map.remove(val); // remove from map
+        nums.remove(nums.size() - 1); // remove from list
+        return true;
+    }
+    
+    /** Get a random element from the set. */
+    public int getRandom() {
+        return nums.get( rand.nextInt(nums.size()) );
+    }
+}   
+   
+// ---------------------------------------------------------------------------------------------------------------   
+// Follow-up question: how would you modify above setting to allow duplicates
+
+// For example, after insert(1), insert(1), insert(2), getRandom() should have 2/3 chance return 1 and 1/3 chance return 2.
+// Then, remove(1), 1 and 2 should have an equal chance of being selected by getRandom().   
+   
+// Modifications: The idea is to add a set to the hashMap to remember all the indexations of a duplicated number.   
+   
+import java.util.Random;
+   
+public class RandomizedCollection {
+
+    ArrayList<Integer> nums;
+	HashMap<Integer, Set<Integer>> map; // use LinkedHashSet (Optimization)
+	Random rand = new Random();
+    // java.util.Random rand = new java.util.Random();
+	
+    public RandomizedCollection() {
+        nums = new ArrayList<Integer>();
+	    map = new HashMap<Integer, Set<Integer>>();
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+	public boolean insert(int val) {
+		boolean contain = map.containsKey(val);
+		if ( ! contain ) 
+			map.put( val, new HashSet<Integer>() ); 
+		
+		map.get(val).add(nums.size());        
+		nums.add(val);
+		return ! contain ;
+	}
+	
+	/** Removes a value from the set. Returns true if the set contained the specified element. */
+	public boolean remove(int val) {
+		boolean contain = map.containsKey(val);
+		if ( ! contain ) 
+			return false;
+		int index = map.get(val).iterator().next(); // removes first element and that way it's O(1)
+		map.get(val).remove(index); // but use LinkedHashSet as hashset.iterator() will be costly i.e. O(n) for too many duplicates
+		
+		if (index < nums.size() - 1 ) {
+			int lastone = nums.get(nums.size() - 1 );
+			nums.set( index , lastone );
+
+			map.get(lastone).remove(nums.size() - 1); // remove last index from set
+			map.get(lastone).add(index);
+		}
+		
+		nums.remove(nums.size() - 1); // remove last from list
+		
+		if (map.get(val).isEmpty()) 
+			map.remove(val);
+		
+		return true;
+	}
+	
+	/** Get a random element from the set. */
+	public int getRandom() {
+		return nums.get( rand.nextInt(nums.size()) );
+	}
+}   
+   
+// ----------------------------------------------------------------------------------------------------------------   
+// geeks for geeks version   
+   
 import java.util.*;
  
 // class to represent the required data structure

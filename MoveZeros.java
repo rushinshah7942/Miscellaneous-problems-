@@ -32,8 +32,9 @@ public class Solution {
         */       
         // 1 ms
         // instead of moving zeros at every non-zero element, do it very later
+
         int i=0;
-        int j=0;
+        int j=0; // index for non-zero element
         
         while(i<nums.length)
         {
@@ -41,7 +42,7 @@ public class Solution {
                 i++;
             else
             {
-                nums[j] = nums[i];
+                nums[j] = nums[i]; // copy non-zero element
                 i++;
                 j++;
             }

@@ -37,7 +37,7 @@ public class Solution
 		{
 			graph[prerequisites[i][1]].add(prerequisites[i][0]);
 		}
-
+		// dfs here
 		for(int i=0; i<numCourses; i++)
 		{
 			if(!dfs(graph,visited,i))

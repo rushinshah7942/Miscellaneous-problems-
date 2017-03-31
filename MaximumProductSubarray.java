@@ -38,3 +38,7 @@ public int maxProduct(int[] A) {
    }
    return res;
 }
+
+// given limit of product
+
+2

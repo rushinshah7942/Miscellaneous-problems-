@@ -11,35 +11,56 @@ add(3);
 add(5);
 find(4) -> true
 find(7) -> false
+
+
+public class TwoSum {
+
+    // Add the number to an internal data structure.
+	public void add(int number) {
+
+	}
+
+    // Find if there exists any pair of numbers which sum is equal to the value.
+	public boolean find(int value) {
+		
+	}
+}
+
+
 */
 
+// Ask interviewer which method do they want faster???
+// My opinion is Add should be faster, as it will be called more times than find()
 
 // Add is faster - o(1)
 // Find is slower - o(N)
+
 public class TwoSum {
-    Map<Integer,Integer> hm;
+    Map<Integer,Integer> map;
     
     TwoSum(){
-        hm = new HashMap<Integer,Integer>();
+        map = new Hasmapap<Integer,Integer>();
     }
 
     // Add the number to an internal data structure.
 	public void add(int number) {
-	    if(hm.containsKey(number)){
-	        hm.put(number,2);
+	    if(map.containsKey(number)){
+	        map.put(number, 2);
 	    }else{
-	        hm.put(number,1);
+	        map.put(number,1);
 	    }
 	}
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
-	    Iterator<Integer> iter = hm.keySet().iterator();
+
+		Iterator<Integer> iter = map.keySet().iterator();
+
 	    while(iter.hasNext()){
 	        int num1 = iter.next();
 	        int num2 = value - num1;
-	        if(hm.containsKey(num2)){
-	            if(num1 != num2 || hm.get(num2) == 2){
+	        if(map.containsKey(num2)){
+	            if(num1 != num2 || map.get(num2) == 2){
 	                return true;
 	            }
 	        }

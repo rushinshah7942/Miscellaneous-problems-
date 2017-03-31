@@ -32,16 +32,23 @@ Runtime Complexity:
 */
 
 public class Solution {
+	
 	public int search(int[] nums, int target) {
 		int pivot = findPivot(nums);
+	
 		if(pivot == 0) 
-			return binarySearch(nums, 0, nums.length - 1, target);
+			return binarySearch(nums, 0, nums.length - 1, target); // normal binary search
+
+		// else
+		// do binary_search on right and left
 		
 		int rightSide = binarySearch(nums, pivot, nums.length - 1, target);
+
 		if(rightSide != -1) 
 			return rightSide;
 		
 		int leftSide = binarySearch(nums, 0, pivot - 1, target);
+
 		return leftSide;
 	}
 
@@ -105,6 +112,9 @@ function getOrigFirst(arr):
    
    
 // Single Binary Search solution
+// Optimized solution
+// O(log n)
+
 public int search(int[] A, int target) {
     if (A.length == 0) 
 		return -1;
@@ -115,7 +125,8 @@ public int search(int[] A, int target) {
 		return -1;
     
     while (L < R) {
-        int M = (L + R)/2;
+
+		int M = (L + R)/2;
         
 		if (A[M] <= A[R]) {
             if (target > A[M] && target <= A[R]) {

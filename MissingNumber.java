@@ -13,12 +13,16 @@ Your algorithm should run in linear runtime complexity. Could you implement it u
 public int missingNumber(int[] nums) { //binary search
     Arrays.sort(nums);
     int left = 0, right = nums.length, mid= (left + right)/2;
-    while(left<right){
+    
+	while(left<right){
         mid = (left + right)/2;
-        if(nums[mid]>mid) right = mid;
-        else left = mid+1;
+    
+		if(nums[mid]>mid) // index-based binary-search
+			right = mid; // there are already larger numbers on right side, check in left-side
+        else 
+			left = mid+1;
     }
-    return left;
+    return left; // return index where element could fit in
 }
 
 // Solution-2
@@ -33,7 +37,6 @@ public class Solution {
         return res;
     }
 }
-
 
 // Solution-3
 // Math problem
