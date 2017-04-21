@@ -55,6 +55,7 @@ public class Solution {
 	private int findPivot(int[] nums) {
 		int left = 0;
 		int right = nums.length - 1;
+
 		while(left < right) {
 			
 			if(nums[left] < nums[right]) 

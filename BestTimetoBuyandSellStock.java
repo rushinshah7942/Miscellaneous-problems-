@@ -30,6 +30,7 @@ public class Solution
                 min = prices[i];
             else
             {
+				// find maximum positive difference between prices[i] and min
                 int diff= prices[i] - min;
                 if(diff >= max)
                     max = diff;

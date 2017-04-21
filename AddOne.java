@@ -64,31 +64,25 @@ public class Solution
 
 public class AddOne
 {
-	public static void main(String[] args)
-	{
+	public static void main(String[] args){
 		int[] digits = {9,7,8};
 		for(int val: plusOne(digits))
 			System.out.println(val + " ");
 	}
-	public static int[] plusOne(int[] digits) 
-	{
-        
-    int n = digits.length;
-    for(int i=n-1; i>=0; i--) 
-    {
-        if(digits[i] < 9) 
-        {
-            digits[i]++;
-            return digits;
-        }
-        
-        digits[i] = 0;
-    }
-    
-    // if it comes here, only when most significant number is 9
-    int[] newNumber = new int [n+1];
-    newNumber[0] = 1;
-    
-    return newNumber;
+	public static int[] plusOne(int[] digits) {        
+		int n = digits.length;
+		for(int i=n-1; i>=0; i--) {
+			if(digits[i] < 9) {
+				digits[i]++; // no need to compute further, optimized
+				return digits;
+			}
+			digits[i] = 0;
+		}
+		// if it comes here, only when most significant number is 9, e.g. 999 + 1 = 1000
+		// create new array
+		int[] newNumber = new int [n+1];
+		newNumber[0] = 1;
+		
+		return newNumber;
 	}
 }

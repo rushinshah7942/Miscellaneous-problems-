@@ -19,6 +19,7 @@ public class Solution
 		
 		if(n==2)
 			return "11";
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("11");
 		

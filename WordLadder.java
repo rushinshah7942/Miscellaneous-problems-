@@ -115,6 +115,8 @@ public int LadderLength(string beginWord, string endWord, ISet<string> wordList)
 
 
 // cutting runtime by a factor of 2 
+// O(len * n * {26^(n/2) + 26^(n/2)} )
+//or simply
 // O(len * n * 26^(n/2) )
 
 /* 

@@ -21,6 +21,8 @@ findMedian() -> 2
 	
 */
 
+// we need to create two buckets with balanced number of elements
+// hence, two priorityQueues 
 public class MedianFinder {
 
     PriorityQueue<Integer> minHeap;
@@ -52,7 +54,7 @@ public class MedianFinder {
         if(minHeap.size() == maxHeap.size()) {
             return (double)(minHeap.peek()+maxHeap.peek())/2;
         } else if(minHeap.size() > maxHeap.size()) {
-            return minHeap.peek();
+            return minHeap.peek(); // as we are only keeping difference of 1 in their sizes
         } else {
             return maxHeap.peek();
         }

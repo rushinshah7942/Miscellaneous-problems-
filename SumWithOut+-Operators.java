@@ -3,9 +3,19 @@ Calculate the sum of two integers a and b, but you are not allowed to use the op
 
 Example:
 Given a = 1 and b = 2, return 3.
+
 */
 
-// Iterative
+// If we can use ++ or -- operation 
+// Should be able to handle negative numbers as well
+
+function sum(a, b) {
+  while(a > 0) { --a; ++b };
+  while(a < 0) { ++a; --b };
+  return b;
+}
+
+// Iterative sum
 public int getSum(int a, int b) {
 	if (a == 0) 
 		return b;
@@ -13,18 +23,18 @@ public int getSum(int a, int b) {
 		return a;
 
 	while (b != 0) {
-		int carry = a & b;
-		a = a ^ b;
-		b = carry << 1;
+		int carry = a & b; // find the carry and move the carry to left 
+		a = a ^ b; // store unique ones in both a and b
+		b = carry << 1;// move carry left 
 	}
 	
 	return a;
 }
 
-// Iterative
+// Iterative subtract
 public int getSubtract(int a, int b) {
 	while (b != 0) {
-		int borrow = (~a) & b;
+		int borrow = (~a) & b; // instead of carry, we borrow
 		a = a ^ b;
 		b = borrow << 1;
 	}

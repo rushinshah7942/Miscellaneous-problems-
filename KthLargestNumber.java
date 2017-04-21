@@ -47,61 +47,50 @@ public int findKthLargest(int[] nums, int k)
 }
 
 // (3)
-// O(N) best case / O(N^2) worst case running time + O(1) memory
+
+// O(N) best & average case / O(N^2) worst case running time + O(1) memory
+// Discard half each time: n+(n/2)+(n/4)..1 = n + (n-1) = O(2n-1) = O(n), because n/2+n/4+n/8+..1=n-1.
+
 // smart approach for this problem is to use the selection algorithm (based on the partion method - the same one as used in quicksort).
 
-public class Solution 
-{
-	public int findKthLargest(int[] nums, int k) 
-	{
-		if (k < 1 || nums == null) 
-		{
+public class Solution {
+	public int findKthLargest(int[] nums, int k) {
+		if (k < 1 || nums == null) {
 			return 0;
 		}
 		return getKth(nums.length - k +1, nums, 0, nums.length - 1);
 	}
-	public int getKth(int k, int[] nums, int start, int end) 
-	{ 
+	public int getKth(int k, int[] nums, int start, int end) { 
 		int pivot = nums[end];
 		int left = start;
 		int right = end;
  
-		while (true) 
-		{
-			while (nums[left] < pivot && left < right) 
-			{
+		while (true) {
+			while (nums[left] < pivot && left < right) {
 				left++;
 			}
-			while (nums[right] >= pivot && right > left) 
-			{
+			while (nums[right] >= pivot && right > left) {
 				right--;
 			}
-			if (left == right) 
-			{
-				break;
+			if (left == right) { // elements at this point -> left side is less then pivot and right side is more than pivot
+				break; // so we break and swap left and end 
 			}
-			swap(nums, left, right); // swap left and right, and then try again 
+			swap(nums, left, right); // or, we swap left and right, and then try again, to create two halves 
 		}
 		swap(nums, left, end);
  
-		if (k == left + 1) 
-		{
-			return pivot;
-		} 
-		else if (k < left + 1) 
-		{
+		if (k == left + 1) {
+			return pivot; // gotcha!
+		} else if (k < left + 1) {
 			// kth largest will be in left side of left index
 			return getKth(k, nums, start, left - 1);
-		} 
-		else 
-		{
+		} else {
 			// kth largest will be in right side of left index
 			return getKth(k, nums, left + 1, end);
 		}
 	}
 	
-	public void swap(int[] nums, int n1, int n2) 
-	{
+	public void swap(int[] nums, int n1, int n2) {
 		int tmp = nums[n1];
 		nums[n1] = nums[n2];
 		nums[n2] = tmp;

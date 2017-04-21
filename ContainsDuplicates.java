@@ -18,3 +18,5 @@ public boolean containsDups(int[] nums)
     }    
     return false;
 }
+
+// or sort and keep checking next value in array

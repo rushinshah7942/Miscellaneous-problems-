@@ -29,6 +29,11 @@ public class Solution
 		if (board.length < 2 || board[0].length < 2)
 			return;
 		
+		// 1.  For all boundaries-connected '0', convert their neighbours to '*' using DFS 
+		// 2.  Turn 'O' to 'X', 
+		//     '*' back to 'O', 
+		//     keep 'X' intact
+		
 		int m = board.length, n = board[0].length;
 		
 		//Any 'O' connected to a boundary can't be turned to 'X', so ...
@@ -63,19 +68,26 @@ public class Solution
 		}
 	}
     //Use DFS algo to turn internal however boundary-connected 'O' to '*';
+	// Convert boundary connected O to *
+	
     private void boundaryDFS(char[][] board, int i, int j)  
     {
 		if (i < 0 || i > board.length - 1 || j <0 || j > board[0].length - 1)
 			return;
+		
 		if (board[i][j] == 'O')
 			board[i][j] = '*';
-		if (i > 1 && board[i-1][j] == 'O')
-			boundaryDFS(board, i-1, j);
+		
+		if (i > 1 && board[i-1][j] == 'O') // top 
+			boundaryDFS(board, i-1, j); // do not visit first row -> again -> so (i > 1) 
+		
 		if (i < board.length - 2 && board[i+1][j] == 'O') //i<board.length-2 ; this condition will omit searching again on boundaries!!
-			boundaryDFS(board, i+1, j);
-		if (j > 1 && board[i][j-1] == 'O')
+			boundaryDFS(board, i+1, j); // bottom
+		
+		if (j > 1 && board[i][j-1] == 'O') // left
 			boundaryDFS(board, i, j-1);
+		
 		if (j < board[i].length - 2 && board[i][j+1] == 'O') //j<board[i].length-2;  this condition will omit searching again on boundaries!!
-			boundaryDFS(board, i, j+1);
+			boundaryDFS(board, i, j+1); // right
     }
 }

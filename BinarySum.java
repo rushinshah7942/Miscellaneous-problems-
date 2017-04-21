@@ -7,6 +7,33 @@ b = "1"
 Return "100".
 */
 
+// Short version of solution
+public class Solution {
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int i = a.length() - 1;
+		int j = b.length() -1;
+		int carry = 0;
+        
+		while (i >= 0 || j >= 0) {
+            int sum = carry;
+			
+			// check again for individual pointers
+            if (j >= 0) 
+				sum += (b.charAt(j--) - '0'); // handles explicit casting 
+            if (i >= 0) 
+				sum += (a.charAt(i--) - '0');
+            
+			sb.append(sum % 2); // possible sums -> 0 1 2 
+            carry = sum / 2;
+        }
+        if (carry != 0) 
+			sb.append(carry);
+        
+		return sb.reverse().toString(); // reverse
+    }
+}
+
 public class Solution 
 {
     public String addBinary(String a, String b) 
@@ -130,33 +157,3 @@ public class Solution
     }
 }
 
-// Short version of solution
-
-public class Solution 
-{
-    public String addBinary(String a, String b) 
-	{
-        StringBuilder sb = new StringBuilder();
-        int i = a.length() - 1;
-		int j = b.length() -1;
-		int carry = 0;
-        
-		while (i >= 0 || j >= 0) 
-		{
-            int sum = carry;
-			
-			// check again for individual pointers
-            if (j >= 0) 
-				sum += b.charAt(j--) - '0'; // handles explicit casting 
-            if (i >= 0) 
-				sum += a.charAt(i--) - '0';
-            
-			sb.append(sum % 2);
-            carry = sum / 2;
-        }
-        if (carry != 0) 
-			sb.append(carry);
-        
-		return sb.reverse().toString();
-    }
-}

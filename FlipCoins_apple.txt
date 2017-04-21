@@ -1,0 +1,26 @@
+/*
+"You have a 100 coins laying flat on a table, each with a head side and a tail side. 10 of them are heads up, 90 are tails up. You can't feel, see or in any other way find out which side is up. Split the coins into two piles such that there are the same number of heads in each pile."
+*/
+
+Pick 10 coins from the original 100 and put them in a separate pile. Then flip those 10 coins over. The two piles are now guaranteed to have the same number of heads. For a general solution of N heads and a total of M coins:
+1.) Pick any N coins out of the original group and form a second pile.
+2.) Flip the new pile of N coins over. Done.
+
+Example (N=2, M=6):
+Original group is HHTTTT (mixed randomly). Pick any two of these and flip them over. There are only three possible scenarios:
+
+1: The two coins you picked are both tails. New groups are {HHTT} {TT} and when you flip the 2nd group you have {HHTT} and {HH}.
+
+2.) The two coins you picked consist of one head and one tail. New groups are {HTTT} and {HT} and when you flip the 2nd group you have {HTTT} and {TH}.
+
+3.) The two coins you picked are both heads. New groups are {TTTT} and {HH} and when you flip the 2nd group you have {TTTT} and {TT}.
+
+
+
+OR
+
+
+Answer #2: Trick question, place 50 coins in both piles and in theory they all have heads just not necessarily facing up or down.
+
+
+Best Answer : Split into two piles, one with 90 coins and the other with 10. Flip over every coin in the pile with 10 coins.

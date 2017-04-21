@@ -13,6 +13,7 @@ Write a function that takes a string as input and returns the string reversed.
     }
 
     //method 2: use swap method
+	// In-place
     public String reverseString(String s)
 	{
         if(s == null || s.length() == 0)
@@ -30,3 +31,21 @@ Write a function that takes a string as input and returns the string reversed.
         
         return new String(cs);
     }
+	
+	// method - 3 
+	// using recursion
+
+	public void reverseString() {
+		String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String reverseAlphabet = reverse(str, alphabet.length()-1);
+	}
+
+	String reverse(String str, int index){
+		if(index == 0){
+			return str.charAt(0) + "";
+		}
+
+		char letter = str.charAt(index);
+		return letter + reverse(str, index-1);
+	}
+	

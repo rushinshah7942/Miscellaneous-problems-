@@ -2,11 +2,12 @@
 Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
 
 get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+
 put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+
 */
 
 //------------------------------------
-
 
 public class LRUCache {
 
@@ -34,7 +35,7 @@ public class LRUCache {
 
 
 
-
+// Doubly Linked List
 class Node{
     int key;
     int value;
@@ -49,9 +50,10 @@ class Node{
 
 public class LRUCache {
     
-    int capacity;
     HashMap<Integer, Node> map = new HashMap<Integer, Node>();
-    Node head=null;
+    int capacity;
+    
+	Node head=null;
     Node end=null;
     
     public LRUCache(int capacity) {
@@ -77,8 +79,9 @@ public class LRUCache {
         }else{
             
             Node created = new Node(key, value);
-            if(map.size()>=capacity){ // check the capacity
-                map.remove(end.key);
+
+            if(map.size() >= capacity){ // check the capacity
+                map.remove(end.key); // end node's key
                 remove(end); // remove end
                 setHead(created); // set new node as head
  
@@ -86,7 +89,8 @@ public class LRUCache {
                 setHead(created); // just set new head
             }    
  
-            map.put(key, created);
+            map.put(key, created); // map stores key and node
+			// that node will store value (and its key as well)
         }
     }
     public void remove(Node n){
@@ -94,14 +98,14 @@ public class LRUCache {
         if(n.pre!=null){
             n.pre.next = n.next;
         }else{
-            head = n.next;
+            head = n.next; // change head as next node
         }
  
         // check next
         if(n.next!=null){
             n.next.pre = n.pre;
         }else{
-            end = n.pre;
+            end = n.pre; // change end as previous node
         }
  
     }

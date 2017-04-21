@@ -23,13 +23,17 @@ public class Solution {
 		int num = 0;
 		char sign = '+';
 		
-		for(int i=0;i<len;i++){
+		for(int i=0;i < len; i++){
+		
 			if(Character.isDigit(s.charAt(i))){
-				num = num*10+s.charAt(i)-'0';
+				num = num*10 + s.charAt(i)-'0'; // do not push, right now!
 			}
-			if((!Character.isDigit(s.charAt(i)) && ' '!=s.charAt(i)) || i==len-1){
+			if((!Character.isDigit(s.charAt(i)) && ' ' != s.charAt(i)) 
+				             || i == len)
+			{ // if end of String, do operation with previous sign
+				
 				if(sign=='-'){
-					stack.push(-num);
+					stack.push(-num); // at last, we will do addition only, so add negative num of this
 				}
 				if(sign=='+'){
 					stack.push(num);
@@ -40,11 +44,13 @@ public class Solution {
 				if(sign=='/'){
 					stack.push(stack.pop()/num);
 				}
-				sign = s.charAt(i);
-				num = 0;
+				
+				sign = s.charAt(i); // now, change the sign
+				num = 0; // initialize with 0
 			}
 		}
 
+		// just add them up
 		int re = 0;
 		for(int i:stack){
 			re += i;

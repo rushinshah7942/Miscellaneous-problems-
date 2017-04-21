@@ -67,10 +67,10 @@ public class PrintAnagramsTogether
 // Another solution
 
 public List<List<String>> groupAnagrams(String[] strs) {
-    List<List<String>> result = new ArrayList<List<String>>();
- 
-    HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
-    for(String str: strs){
+    List<List<String>> result = new ArrayList<>();
+    Map<String, ArrayList<String>> map = new HashMap<>();
+    
+	for(String str: strs){
 		
         // below is the main logic
 		// If two strings are anagram to each other, their sorted sequence is the same.

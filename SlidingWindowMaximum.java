@@ -38,6 +38,47 @@ now, sliding max at each position i in current window, sliding-max(i) = max{righ
 sliding_max = 4, 6, 6, 8, 9, 10, 12, 56
 
 */
+
+
+// With Deque - Much Faster 
+// poll() - Retrieves and removes the head of the queue represented by this deque
+// pollFirst() - same as poll()
+// pollLast() 
+// peekFirst()
+// peekLast()
+// Time O(n)
+// Space O(k)
+public class Solution 
+{
+    public int[] maxSlidingWindow(int[] nums, int k) 
+    {
+        if(nums==null||nums.length==0)
+            return new int[0];
+ 
+        int[] result = new int[nums.length-k+1];
+ 
+        Deque<Integer> deque = new LinkedList<Integer>();
+        
+		for(int i=0; i<nums.length; i++)
+        {
+            if(!deque.isEmpty()&&deque.peekFirst()==i-k) 
+                deque.poll();
+ 
+            while(!deque.isEmpty()&&nums[deque.peekLast()]<nums[i])
+            {
+                deque.removeLast();
+            }    
+ 
+            deque.offer(i);
+ 
+            if(i+1>=k)
+                result[i+1-k]=nums[deque.peek()];
+        }
+ 
+        return result;
+    }
+}
+/// 
 public class Solution 
 {
     public int[] maxSlidingWindow(int[] nums, int k) 
@@ -66,46 +107,5 @@ public class Solution
             sliding[j++] = Math.max(right_max[i],left_max[k+i-1]);
         }
         return sliding;
-    }
-}
-
-
-
-
-// With Deque - Much Faster 
-
-
-// poll() - Retrieves and removes the head of the queue represented by this deque
-// pollFirst() - same as poll()
-// pollLast() 
-// peekFirst()
-// peekLast()
-public class Solution 
-{
-    public int[] maxSlidingWindow(int[] nums, int k) 
-    {
-        if(nums==null||nums.length==0)
-            return new int[0];
- 
-        int[] result = new int[nums.length-k+1];
- 
-        LinkedList<Integer> deque = new LinkedList<Integer>();
-        for(int i=0; i<nums.length; i++)
-        {
-            if(!deque.isEmpty()&&deque.peekFirst()==i-k) 
-                deque.poll();
- 
-            while(!deque.isEmpty()&&nums[deque.peekLast()]<nums[i])
-            {
-                deque.removeLast();
-            }    
- 
-            deque.offer(i);
- 
-            if(i+1>=k)
-                result[i+1-k]=nums[deque.peek()];
-        }
- 
-        return result;
     }
 }

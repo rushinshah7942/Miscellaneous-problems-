@@ -5,12 +5,14 @@ Examples:
 
 Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
 Output: Order of characters is 'b', 'd', 'a', 'c'
+
 Note that words are sorted and in the given language "baa" 
 comes before "abcd", therefore 'b' is before 'a' in output.
 Similarly we can find other orders.
 
 Input:  words[] = {"caa", "aaa", "aab"}
 Output: Order of characters is 'c', 'a', 'b'
+
 */
 
 
@@ -32,70 +34,85 @@ The idea is to create a graph of characters and then find topological sorting of
 Reference: 	http://www.geeksforgeeks.org/given-sorted-dictionary-find-precedence-characters/
 */
 
-
 public String alienOrder(String[] words) 
 {
-    Map<Character, Set<Character>> map=new HashMap<Character, Set<Character>>();
-    Map<Character, Integer> degree=new HashMap<Character, Integer>();
+    Map<Character, Set<Character>> map=new HashMap<Character, Set<Character>>(); // order hashmap
+	// The characters in set come after the key. x->y means letter x comes before letter y. x -> set: y,z,t,w means x comes before all the letters in the set. 
+    Map<Character, Integer> degree=new HashMap<Character, Integer>(); // degree map for each word
+
     String result="";
     
 	if(words==null || words.length==0) 
 		return result;
-    for(String s: words)
-	{
-        for(char c: s.toCharArray())
-		{
+
+	// first, build a degree map for each character in all the words:
+	// O(n),  where n = length of dictionary(array) of words
+    for(String s: words){
+        for(char c: s.toCharArray()){
             degree.put(c,0);
         }
     }
+	
+	// O(n)
     for(int i=0; i<words.length-1; i++)
 	{
+		// build the hashmap by comparing the adjacent words, the first character that is different 
+		// between two adjacent words reflect the lexicographical order.
         String cur=words[i];
         String next=words[i+1];
-		int length=Math.min(cur.length(), next.length());
+		
+		int length=Math.min(cur.length(), next.length()); // iterate over minimum length
         
-		for(int j=0; j<length; j++)
-		{
-            char c1=cur.charAt(j);
+		for(int j=0; j<length; j++) {
+
+			char c1=cur.charAt(j);
             char c2=next.charAt(j);
-            if(c1!=c2)
-			{
-                Set<Character> set=new HashSet<Character>();
-                if(map.containsKey(c1)) set=map.get(c1);
+
+            if(c1!=c2){
+                
+				Set<Character> set=new HashSet<Character>();
+                
+				if(map.containsKey(c1)) 
+					set=map.get(c1);
+				
                 if(!set.contains(c2)){
                     set.add(c2);
                     map.put(c1, set);
-                    degree.put(c2, degree.get(c2)+1);
+                    degree.put(c2, degree.get(c2)+1); // increment degree for following letter i.e. c2
                 }
-                break;
+                break; // find next pair of words
             }
         }
     }
 	
-    Queue<Character> q=new LinkedList<Character>();
+	// Now, simply do the topological sorting  - Karn's algorithm	
+    Queue<Character> queue = new LinkedList<Character>();
     
 	// add starting points in the graph (there can be multiple sources with indegree 0)
 	for(char c: degree.keySet())
 	{
-        if(degree.get(c)==0) q.add(c);
+        if(degree.get(c)==0) 
+			queue.add(c);
     }
 	
-    while(!q.isEmpty())
-	{
-        char c=q.remove();
-        result+=c;
-        if(map.containsKey(c))
-		{
-            for(char c2: map.get(c))
+    while(!q.isEmpty()){
+		
+        char curr = q.remove();
+        result += curr; // add in final result
+		
+        if(map.containsKey(curr)){
+			// add each character in set of this character
+            for(char c2: map.get(curr))
 			{
-                degree.put(c2,degree.get(c2)-1);
-                if(degree.get(c2)==0) 
-					q.add(c2);
+                degree.put(c2,degree.get(c2)-1); // decrement degree count
+                if(degree.get(c2) == 0)  // when degree becomes 0, add into queue
+					queue.add(c2);
             }
         }
     }
 	
-    if(result.length()!=degree.size())  // can not determine from given input of words
+	// important step in deciding if we can not determine order of characters 
+    if(result.length() != degree.size())  // can not determine from given input of words
 		return "";
     
 	return result;

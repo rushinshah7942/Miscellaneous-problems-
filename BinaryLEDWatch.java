@@ -25,8 +25,8 @@ public class Solution {
 		for (int h=0; h<12; h++)
 			for (int m=0; m<60; m++)
 				if (Integer.bitCount(m) + Integer.bitCount(h) == num)
-					times.add(String.format("%d:%02d", h, m));
+					times.add( String.format("%d:%02d", h, m) );
 
-				return times;        
+		return times;        
 	}
 }

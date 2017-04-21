@@ -1,11 +1,26 @@
 /*
-Implement a trie with insert, search, and startsWith methods.
+	Implement a trie with insert, search, and startsWith methods.
 
-Note:
-You may assume that all inputs are consist of lowercase letters a-z.
+	Note:
+	You may assume that all inputs are consist of lowercase letters a-z.
 
 */
 
+/*
+
+Trie is an efficient information retrieval data structure. 
+
+Using trie, search complexities can be brought to optimal limit (key length). 
+
+If we store keys in binary search tree, a well balanced BST will need time proportional to (M * log N), where M is maximum string length and N is number of keys in tree. 
+
+Using trie, we can search the key in O(M) time. However the penalty is on trie storage requirements.
+
+*/
+
+// Insert and search costs O(key_length), 
+// However the memory requirements of trie is O(ALPHABET_SIZE * key_length * N) 
+//                                            where N is number of keys in trie.
 
 public class Trie {
 
@@ -70,7 +85,7 @@ public class Trie {
             if(node.children[c-'a'] == null){
                 node.children[c-'a'] = new TrieNode();
             }
-            node = node.children[c-'a']; // go to the next node in tree
+            node = node.children[c-'a']; // that character c is present, so go to the next node in tree
         }
         node.isWord = true; // mark that word as true
     }
@@ -92,7 +107,8 @@ public class Trie {
     
     /** Returns if there is any word in the trie that starts with the given prefix. */
     public boolean startsWith(String prefix) {
-        TrieNode node = root;
+
+		TrieNode node = root;
         char[] ch = prefix.toCharArray();
         
         for(char c : ch)

@@ -32,19 +32,19 @@ public class Solution
                 }
                 else if(Integer.parseInt(arr1[i]) > Integer.parseInt(arr2[i]))
                 {
-                return 1;
+					return 1;
                 }
             } 
             else if(i<arr1.length)
             {
-                if(Integer.parseInt(arr1[i]) != 0)
+                if(Integer.parseInt(arr1[i]) != 0) // check if extra characters are not 0
                 {
                     return 1;
                 }
             } 
             else if(i<arr2.length)
             {
-                if(Integer.parseInt(arr2[i]) != 0)
+                if(Integer.parseInt(arr2[i]) != 0) // check if extra characters are not 0
                 {
                     return -1;
                 }

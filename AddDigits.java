@@ -7,15 +7,18 @@ Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one
 
 Follow up:
 Could you do it without any loop/recursion in O(1) runtime?
+
 */
 
 // https://en.wikipedia.org/wiki/Digital_root
 
+
+// O(n) runtime
+// with loop 
 public class Solution 
 {
     public int addDigits(int num) 
     {
-        /*
         // with loop
         String str = String.valueOf(num);
         
@@ -32,8 +35,18 @@ public class Solution
             str = String.valueOf(sum);
             sum = 0;
         }
-        return Integer.parseInt(str);*/
-        
+		
+        return Integer.parseInt(str);  
+    }
+}
+
+
+// O(1) runtime
+// take examples from 0 to 20, and show on the board
+public class Solution 
+{
+    public int addDigits(int num) 
+    {
         if(num<10)
             return num;
         else if(num%9 ==0)

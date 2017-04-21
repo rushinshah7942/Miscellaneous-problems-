@@ -13,27 +13,48 @@ Given numerator = 2, denominator = 3, return "0.(6)".
 
 public class Solution {
     public String fractionToDecimal(int numerator, int denominator) {
-		StringBuilder result = new StringBuilder();
-		String sign = (numerator < 0 == denominator < 0 || numerator == 0) ? "" : "-";
-		long num = Math.abs((long) numerator);
-		long den = Math.abs((long) denominator);
-		result.append(sign);
-		result.append(num / den);
-		long remainder = num % den;
-		if (remainder == 0)
-			return result.toString();
-		result.append(".");
-		System.out.println("result:" + result.toString());
-		HashMap<Long, Integer> hashMap = new HashMap<Long, Integer>();
-		while (!hashMap.containsKey(remainder)) {
-			System.out.println("remainder" + remainder);
-			hashMap.put(remainder, result.length());
-			result.append(10 * remainder / den);
-			remainder = 10 * remainder % den;
-		}
-		int index = hashMap.get(remainder);
-		result.insert(index, "(");
-		result.append(")");
-		return result.toString().replace("(0)", "");
-		}
+        if (numerator == 0) {
+            return "0";
+        }
+        StringBuilder res = new StringBuilder();
+        
+		// "+" or "-"
+        res.append(((numerator > 0) ^ (denominator > 0)) ? "-" : "");
+
+        long num = Math.abs((long)numerator);
+        long den = Math.abs((long)denominator);
+        
+        // integral part
+        res.append(num / den);
+
+        num %= den;
+
+        if (num == 0) {
+            return res.toString();
+        }
+        
+        // fractional part
+        res.append(".");
+        HashMap<Long, Integer> map = new HashMap<Long, Integer>();
+        map.put(num, res.length());
+
+        while (num != 0) {
+            
+			num *= 10; // like we do divison, we take 0
+            res.append(num / den);
+            num %= den;
+			
+			// we get similar remainder (num%= den) ,then we need to get it from map
+            if (map.containsKey(num)) {
+                int index = map.get(num); // index where we need to insert (
+                res.insert(index, "(");
+                res.append(")");// and just append )
+                break;
+            }
+            else {
+                map.put(num, res.length());
+            }
+        }
+        return res.toString();
+    }
 }

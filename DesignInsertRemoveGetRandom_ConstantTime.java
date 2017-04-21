@@ -12,7 +12,9 @@ getRandom(): Returns a random element from current set of elements
 
 Solution:
 -----------
-We can use hashing to support first 3 operations in O(1) time. How to do the 4th operation? The idea is to use a resizable array (ArrayList in Java, vector in C) together with hashing. Resizable arrays support insert in Θ(1) amortized time complexity. To implement getRandom(), we can simply pick a random number from 0 to size-1 (size is number of current elements) and return the element at that index. The hash map stores array values as keys and array indexes as values.
+We can use hashing to support first 3 operations in O(1) time. How to do the 4th operation? The idea is to use a resizable array (ArrayList in Java, vector in C) together with hashing. Resizable arrays support insert in Θ(1) amortized time complexity. 
+
+To implement getRandom(), we can simply pick a random number from 0 to size-1 (size is number of current elements) and return the element at that index. The hash map stores array values as keys and array indexes as values.
 
 Following are detailed operations.
 
@@ -25,7 +27,7 @@ remove(x)
 1) Check if x is present by doing a hash map lookup.
 2) If present, then find its index and remove it from hash map.
 3) Swap the last element with this element in array and remove the last element.
-Swapping is done because the last element can be removed in O(1) time.
+//-> Swapping is done because the last element can be removed in O(1) time.
 4) Update index of last element in hash map.
 
 getRandom()
@@ -70,9 +72,9 @@ randomSet.insert(2);
 randomSet.getRandom();   
    
 
-// ASK IF DUPLICATES ARE ALLOWED OR NOT
+// "ASK IF DUPLICATES ARE ALLOWED OR NOT"
    
-// No duplicates are allowed   
+// 1. No duplicates are allowed 
    
 public class RandomizedSet {
     
@@ -89,7 +91,8 @@ public class RandomizedSet {
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
         boolean contain = map.containsKey(val);
-        if ( contain ) return false;
+        if ( contain ) 
+			return false;
         map.put( val, nums.size());
         nums.add(val);
         return true;
@@ -98,7 +101,8 @@ public class RandomizedSet {
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
         boolean contain = map.containsKey(val);
-        if ( ! contain ) return false;
+        if ( ! contain ) 
+			return false;
      
 		int index = map.get(val);
 		
@@ -123,7 +127,7 @@ public class RandomizedSet {
 }   
    
 // ---------------------------------------------------------------------------------------------------------------   
-// Follow-up question: how would you modify above setting to allow duplicates
+// 2. Follow-up question: how would you modify above setting to allow duplicates
 
 // For example, after insert(1), insert(1), insert(2), getRandom() should have 2/3 chance return 1 and 1/3 chance return 2.
 // Then, remove(1), 1 and 2 should have an equal chance of being selected by getRandom().   

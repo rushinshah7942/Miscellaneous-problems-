@@ -39,13 +39,14 @@ public class TwoSum {
     Map<Integer,Integer> map;
     
     TwoSum(){
-        map = new Hasmapap<Integer,Integer>();
+        map = new Hashmap<Integer,Integer>();
     }
 
     // Add the number to an internal data structure.
+	// Or keep HashMap<Integer, boolean> -> if number occurs more than once keep it true
 	public void add(int number) {
 	    if(map.containsKey(number)){
-	        map.put(number, 2);
+	        map.put(number, map.get(number) + 1);
 	    }else{
 	        map.put(number,1);
 	    }
@@ -60,7 +61,7 @@ public class TwoSum {
 	        int num1 = iter.next();
 	        int num2 = value - num1;
 	        if(map.containsKey(num2)){
-	            if(num1 != num2 || map.get(num2) == 2){
+	            if(num1 != num2 || map.get(num2) > 1){
 	                return true;
 	            }
 	        }

@@ -1,0 +1,49 @@
+This question comes from the book named "Cracking Code Interview", Chapter 7; It is very easy problem with thinking about the insert/remove/update/retrieve action.
+
+-> What are the functionalities?? 
+
+Functionality
+------------------------------------
+- User Membership Creation and Extension
+- Search the book in memory
+- Reading the book
+- Analysis
+------------------------
+	Objects         |
+------------------------
+
+Book:
+----------
+ID
+Title
+Author
+Content / Chapters
+Method
+- showContent()
+
+Books: (In-memory storage for many book objects)
+---------------------------------------------------
+Set
+Method
+- find
+- add
+- delete
+- update
+
+User:
+------------
+ID
+Name
+accoutnType
+Method
+- findBook
+- read (book.showContent)
+
+Users:
+------------
+Set
+Method
+- find
+- add
+- delete
+- update

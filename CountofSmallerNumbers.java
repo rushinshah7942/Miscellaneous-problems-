@@ -27,7 +27,7 @@ public class Solution
 		
 		for (int i = nums.length - 1; i >= 0; i--) {
 			int index = findIndex(sorted, nums[i]); // does binary search, hence O(N*logN)
-			ans[i] = index;
+			ans[i] = index; // that indez is our answer
 			sorted.add(index, nums[i]); 
 			// plus amortized O(N) which we can avoid if there is not much of doubling of araylist and copying elements
 		}

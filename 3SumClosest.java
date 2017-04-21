@@ -6,6 +6,8 @@ Given an array S of n integers, find three integers in S such that the sum is cl
     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 */
 
+// Brute-force approach O(n^3)
+
 
 // slight modification of 3Sum problem
 public class Solution 
@@ -14,25 +16,28 @@ public class Solution
     {
         int sum;
         int result = 0;
-        int diff = Integer.MAX_VALUE;
+        int diff = Integer.MAX_VALUE; // difference between sum and target
         
-        Arrays.sort(nums);
+        Arrays.sort(nums); // O(n logn)
         
         for(int i=0;i<nums.length-2;i++)
         {
             int j=i+1;
             int k= nums.length-1;
             
-            while(j<k)
+            while(j < k)
             {
                 sum = nums[i]+ nums[j]+ nums[k];
                 int diff_mod = Math.abs(target-sum);
-                if(diff_mod < diff)
+                
+				// update minimum difference between target and sum
+				if(diff_mod < diff)
                 {
                     diff = diff_mod;
                     result = sum;
                 }
-                if(sum > target)
+  
+				if(sum > target)
                 {
                     k--;
                 }

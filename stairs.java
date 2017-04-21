@@ -5,8 +5,7 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
 */
 
 public class Solution {
-    public int climbStairs(int n) 
-    {
+    public int climbStairs(int n) {
         /*
         
         // with different values of n, show that this problem is fibonacci series

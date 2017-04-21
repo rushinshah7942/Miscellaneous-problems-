@@ -16,18 +16,17 @@ public class Solution extends VersionControl
         if(n==1)
             return 1;
         
-        int l= 1;
-        int r= n;
+        int left= 1;
+        int right= n;
         
-        while(l<r)
+        while(left<right)
         {
-            int m = l+(r-l)/2;
-            if(isBadVersion(m))
-                r = m;
+            int mid = left+(right-left)/2;
+            if(isBadVersion(mid))
+                right = mid; // as we need to find bad, eliminate all version on right, except itself
             else 
-                l = m+1;
+                left = mid+1; // +1
         }
-        
-        return r;
+        return right;
     }
 }

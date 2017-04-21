@@ -13,17 +13,21 @@ No. of platforms required in above scenario = 4
 We will use logic very much similar to merge sort.
 
 Compare current element in arrival and departure array and pick smaller one among both.
-If element is pick up from arrival array then increment platform_needed.
-If element is pick up from departure array then decrement platform_needed.
+- If element is pick up from arrival array then increment platform_needed.
+- If element is pick up from departure array then decrement platform_needed.
+
 While performing above steps, we need track count of maximum value reached for platform_needed.
+
 In the end, we will return maximum value reached for platform_needed.
 
     arr[]  = {9:00,  9:40, 9:50,  11:00, 15:00, 18:00}
     dep[]  = {9:10, 12:00, 11:20, 11:30, 19:00, 20:00}
 
 All events sorted by time.
+
 Total platforms at any time can be obtained by subtracting total 
 departures from total arrivals by that time.
+
  Time     Event Type     Total Platforms Needed at this Time                               
  9:00       Arrival                  1
  9:10       Departure                0

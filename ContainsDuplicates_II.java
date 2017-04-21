@@ -11,12 +11,10 @@ public class Solution
         if(nums == null || nums.length <2)
             return false;
         
-        HashMap<Integer, Integer> hp = new HashMap<Integer,Integer>();
+        HashMap<Integer, Integer> hp = new HashMap<Integer,Integer>(); // number and its index in array
         
-        for(int i=0;i<nums.length;i++)
-        {
-            if(hp.containsKey(nums[i]))
-            {
+        for(int i=0;i<nums.length;i++){
+            if(hp.containsKey(nums[i])){ // duplicate
                 int j = hp.get(nums[i]);
                 if(i-j <=k)
                     return true;

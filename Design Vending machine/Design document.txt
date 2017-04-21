@@ -1,0 +1,26 @@
+Idea
+-----------
+The key point for this question is that you should recognize the states switching process. 
+Essentially, it's a thinking about state pattern.
+
+Four States for a vending machine:
+-----------------------------------
+1. Empty (Nothing in vending machine) 
+2. Coin Inserted
+3. No Coin Inserted
+4. Dispense a merchandise 
+
+
+You can use integer to represent state like this:
+      private final static int HAS_MONEY = 0;  
+      private final static int NO_MONEY = 1;  
+      private final static int SOLD = 2;  
+      private final static int SOLD_OUT = 3;
+
+BUT it'd be better to use classes with designed inheritance relationship, like following
+      State coninInsertedState = new CoinInsertedState(this);
+      State emptyState = new EmptyState(this);
+      State noCoinInsertedState = new NoCoinInsertedState(this);
+      State dispensingState = new DispensingState(this);
+
+
